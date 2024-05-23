@@ -1,13 +1,16 @@
 """
 Test custom Django management commands.
 """
-from unittest.mock import patch #mock the behavior of database connection # noqa
+from unittest.mock import \
+    patch  # mock the behavior of database connection # noqa
 
-from psycopg2 import OperationalError as Psycopg2Error #psycopg2 is the database driver for PostgreSQL, example of error when database is not available # noqa
-
-from django.core.management import call_command #allows to call management commands from the code # noqa
-from django.db.utils import OperationalError# noqa
+from django.core.management import \
+    call_command  # allows to call management commands from the code # noqa
+from django.db.utils import OperationalError  # noqa
 from django.test import SimpleTestCase
+from psycopg2 import \
+    OperationalError as \
+    Psycopg2Error  # psycopg2 is the database driver for PostgreSQL, example of error when database is not available # noqa
 
 
 @patch('core.management.commands.wait_for_db.Command.check')
