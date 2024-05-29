@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_spectacular',  # drf_spectacular is a package that generates OpenAPI schemas for Django REST framework APIs # noqa
     'user',
+    'recipe',
 ]
 
 MIDDLEWARE = [
