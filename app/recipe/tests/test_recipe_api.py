@@ -37,9 +37,11 @@ def create_recipe(user, **params):
 
     return Recipe.objects.create(user=user, **defaults)
 
+
 def create_user(**params):
     """create a sample user"""
     return get_user_model().objects.create_user(**params)
+
 
 class PublicRecipeApiTests(TestCase):
     """test unauthenticated recipe API access"""
@@ -75,7 +77,9 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_recipes_limited_to_user(self):
         """test list of recipes is limited to authenticated user"""
-        other_user = create_user(email='other@example.com', password='testpass')
+        other_user = create_user(
+            email='other@example.com',
+            password='testpass')
         create_recipe(user=other_user)
         create_recipe(user=self.user)
 
@@ -157,7 +161,9 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_update_user_returns_error(self):
         """test updating a recipe with put"""
-        other_user = create_user(email='other@example.com', password='testpass')
+        other_user = create_user(
+            email='other@example.com',
+            password='testpass')
         recipe = create_recipe(user=self.user)
 
         payload = {'user': other_user.id}
@@ -165,7 +171,7 @@ class PrivateRecipeApiTests(TestCase):
         self.client.patch(url, payload)
 
         recipe.refresh_from_db()
-        self.assertEqual(recipe.user, self.user) # user should not be updated
+        self.assertEqual(recipe.user, self.user)  # user should not be updated
 
     def test_delete_recipe(self):
         """test deleting a recipe"""
@@ -179,7 +185,9 @@ class PrivateRecipeApiTests(TestCase):
 
     def test_recipe_other_users_recipe_error(self):
         """test deleting a recipe from different user"""
-        other_user = create_user(email='other2@example.com', password='testpass')
+        other_user = create_user(
+            email='other2@example.com',
+            password='testpass')
         recipe = create_recipe(user=other_user)
 
         url = detail_url(recipe.id)
